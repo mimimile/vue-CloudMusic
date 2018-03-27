@@ -11,22 +11,26 @@
     </div>
 
     <div class="hot-playlist__center">
-      <div class="playlist-li" >
-
+      <div v-if="list" class="playlist-li" v-for="(item, index) in list" :key="index">
+        <playlist-cell :data="item" :id="index+1"></playlist-cell>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { fetchPlaylist } from '@/api/home'
 import fecha from 'fecha'
+import { fetchPlaylist } from '@/api/home'
+import PlaylistCell from './components/HotPlaylistCell'
 
 export default {
   name: 'hot-playlist',
+  components: {
+    PlaylistCell
+  },
   data () {
     return {
-      list: [],
+      list: null,
       updateTime: null
     }
   },
@@ -36,8 +40,10 @@ export default {
   methods: {
     async getData () {
       const { playlist } = await fetchPlaylist({ idx: 1 })
-      const { updateTime } = playlist
+      const { updateTime, tracks } = playlist
       this.updateTime = fecha.format(new Date(updateTime), 'MM月DD日')
+      this.list = tracks.slice(0, 20)
+      console.log(this.list)
     }
   }
 }

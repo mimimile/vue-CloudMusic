@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import RecommendMusic from '@/components/RecommendMusic'
 import GithubCorner from '@/components/GithubCorner'
-import HotPlaylist from '@/components/HotPlaylist'
+import RecommendMusic from './components/RecommendMusic'
+import HotPlaylist from './components/HotPlaylist'
 
 export default {
   name: 'home',
