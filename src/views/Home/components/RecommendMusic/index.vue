@@ -17,7 +17,6 @@
         <sglist-cell class="recommend-music__sglist--item" :data="item"></sglist-cell>
       </div>
     </div>
-
     <footer class="recommend-music__ft">
       <div class="recommend-music__ft--wrap">
         <div class="logo">
@@ -34,8 +33,8 @@
 <script>
 import { fetchRecommendList, fetchSglist } from '@/api/home'
 import Subtitle from '@/components/Subtitle'
-import RecommendCell from '@/components/RecommendCell'
-import SglistCell from '@/components/SglistCell'
+import RecommendCell from './components/RecommendCell'
+import SglistCell from './components/SglistCell'
 
 export default {
   name: 'recommend-music',

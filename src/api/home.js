@@ -13,3 +13,11 @@ export function fetchSglist () {
     method: 'get'
   })
 }
+
+export function fetchPlaylist (query) {
+  return request({
+    url: '/top/list',
+    method: 'get',
+    params: query
+  })
+}
