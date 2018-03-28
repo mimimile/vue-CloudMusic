@@ -25,7 +25,7 @@
         <hot-playlist/>
       </mt-tab-container-item>
       <mt-tab-container-item :id="3">
-        3
+        <search/>
       </mt-tab-container-item>
     </mt-tab-container>
   </div>
@@ -35,13 +35,15 @@
 import GithubCorner from '@/components/GithubCorner'
 import RecommendMusic from './components/RecommendMusic'
 import HotPlaylist from './components/HotPlaylist'
+import Search from './components/Search'
 
 export default {
   name: 'home',
   components: {
     RecommendMusic,
     GithubCorner,
-    HotPlaylist
+    HotPlaylist,
+    Search
   },
   data () {
     return {

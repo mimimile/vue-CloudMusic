@@ -9,11 +9,13 @@
         </div>
       </div>
     </div>
-
     <div class="hot-playlist__center">
       <div v-if="list" class="playlist-li" v-for="(item, index) in list" :key="index">
         <playlist-cell :data="item" :id="index+1"></playlist-cell>
       </div>
+    </div>
+    <div v-if="list" class="hot-playlist__footer">
+      <span v-if="list.length !== fullList.length" @click="viewFullList">查看完整榜单</span>
     </div>
   </div>
 </template>
@@ -31,7 +33,8 @@ export default {
   data () {
     return {
       list: null,
-      updateTime: null
+      updateTime: null,
+      fullList: null
     }
   },
   created () {
@@ -43,7 +46,10 @@ export default {
       const { updateTime, tracks } = playlist
       this.updateTime = fecha.format(new Date(updateTime), 'MM月DD日')
       this.list = tracks.slice(0, 20)
-      console.log(this.list)
+      this.fullList = tracks.slice(0, 99)
+    },
+    viewFullList () {
+      this.list = this.fullList
     }
   }
 }
@@ -106,6 +112,18 @@ export default {
   }
   @include e(center) {
     position: relative;
+  }
+  @include e(footer) {
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    & > span {
+      display: inline-block;
+      color: #999;
+      padding-right: 14px;
+      background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAyMiI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSJub25lIiBzdHJva2U9IiNjY2MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBkPSJtMSAxbDEwIDEwLTEwIDEwIi8+PC9zdmc+) 100% no-repeat;
+      background-size: 7px 12px;
+    }
   }
 }
 </style>

@@ -21,3 +21,11 @@ export function fetchPlaylist (query) {
     params: query
   })
 }
+
+export function searchSuggest (query) {
+  return request({
+    url: '/search/suggest',
+    method: 'get',
+    params: query
+  })
+}

@@ -29,6 +29,12 @@ address,cite,dfn,em,i,var {
   outline: 0
 }
 
+li,ul {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+}
+
 li {
   list-style: none
 }
@@ -102,11 +108,18 @@ input,select,textarea {
 }
 
 input:focus,select:focus,textarea:focus {
-  outline: 0
+  outline: 0;
 }
 
 input::-webkit-input-placeholder {
-  color: #969696
+  color: #969696;
+}
+
+input::-ms-clear {
+  display: none;
+}
+input::-ms-reveal {
+  display: none;
 }
 
 video::-webkit-media-controls-start-playback-glyph {
@@ -183,6 +196,42 @@ video::-webkit-media-controls-start-playback-glyph {
 
 .f-bd-btm:after {
   border-bottom-width: 1px;
+}
+
+.f-bd {
+  position: relative;
+}
+
+.f-bd-full:after {
+  border-width: 1px;
+}
+
+.u-svg-srch {
+  position: absolute;
+  left: 0;
+  top: 9px;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+.u-svg {
+  display: inline-block;
+  vertical-align: middle;
+  background-position: 0 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.u-svg-srch {
+  width: 13px;
+  height: 13px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjYzljOWNhIiBkPSJNMjUuMTgxLDIzLjUzNWwtMS40MTQsMS40MTRsLTcuMzE1LTcuMzE0CgkJQzE0LjcwOSwxOS4xMDcsMTIuNDYsMjAsMTAsMjBDNC40NzcsMjAsMCwxNS41MjMsMCwxMEMwLDQuNDc3LDQuNDc3LDAsMTAsMGM1LjUyMywwLDEwLDQuNDc3LDEwLDEwYzAsMi4zNDItMC44MTEsNC40OS0yLjE2LDYuMTk1CgkJTDI1LjE4MSwyMy41MzV6IE0xMCwyYy00LjQxOCwwLTgsMy41ODItOCw4czMuNTgyLDgsOCw4YzQuNDE4LDAsOC0zLjU4Miw4LThTMTQuNDE4LDIsMTAsMnoiLz48L3N2Zz4=);
+}
+
+.u-svg-empty {
+  width: 14px;
+  height: 14px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyOCAyOCI+PGcgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBmaWxsPSIjYmNiZGJkIiBkPSJNMTQsMGM3LjczMiwwLDE0LDYuMjY4LDE0LDE0YzAsNy43MzItNi4yNjgsMTQtMTQsMTQKCVMwLDIxLjczMiwwLDE0QzAsNi4yNjgsNi4yNjgsMCwxNCwweiIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ViZWNlYiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCI+PHBhdGggZD0ibTE5IDlsLTEwIDEwIi8+PHBhdGggZD0ibTkgOWwxMCAxMCIvPjwvZz48L2c+PC9zdmc+);
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 1.5) {
