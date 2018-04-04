@@ -5,13 +5,13 @@
         <i class="u-svg u-svg-srch"></i>
         <input name="search" class="input" v-model="keywords" @keyup="hiddenLabel" autocomplete="off">
         <label v-show="isHidden" class="holder">搜索歌曲、歌手、专辑</label>
-        <figure class="close">
-          <i class="u-svg u-svg-empty z-show"></i>
+        <figure class="close" v-show="!isHidden">
+          <i class="u-svg u-svg-empty z-show" @click="keywords = ''"></i>
         </figure>
       </div>
     </form>
-    <div class="m-search__default">
-      <section class="m-hotlist">
+    <div class="m-search__center">
+      <section v-if="type === searchType.default" class="m-hotlist">
         <h3 class="m-hotlist__title">热门搜索</h3>
         <ul class="m-hotlist__list">
           <li class="m-hotlist__list--item f-bd f-bd-full" v-for="item in hotlist" :key="item">
@@ -19,15 +19,26 @@
           </li>
         </ul>
       </section>
-      <section class="m-history">
-
+      <section v-else-if="type === searchType.recom" class="m-history">
+        <h3 class="title f-bd f-bd-btm f-thide">
+          搜索“{{keywords}}”
+        </h3>
+        <ul>
+          <li class="recomitem" v-for="(item, index) in orderList" :key="index">
+            <i class="u-svg u-svg-search"></i>
+            <span class="f-bd f-bd-btm f-thide">{{item}}</span>
+          </li>
+        </ul>
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import Enum from 'enum'
 import { searchSuggest } from '@/api/home'
+
+const searchType = new Enum(['default', 'recom', 'result'])
 
 export default {
   name: 'search',
@@ -45,9 +56,12 @@ export default {
         'Welcome To New York',
         '苏打绿'
       ],
+      searchType,
+      type: searchType.default,
       searchWord: '',
       isHidden: true,
-      stopHidden: false
+      stopHidden: false,
+      orderList: []
     }
   },
   computed: {
@@ -59,17 +73,20 @@ export default {
         if (v === '' && this.isHidden === false) {
           this.isHidden = true
           this.stopHidden = true
+          this.type = searchType.default
+          return
         }
         this.searchWord = v
         this.handleSearch(v)
+        this.type = searchType.recom
       }
     }
   },
   methods: {
     async handleSearch (v) {
       console.warn('keywords', v)
-      const { result } = await searchSuggest({ keywords: v })
-      console.log('result', result)
+      const { result: { order } } = await searchSuggest({ keywords: v })
+      this.orderList = order
     },
     hiddenLabel () {
       if (this.stopHidden) {
@@ -84,6 +101,48 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/styles/mixins/mixins";
+
+.recomitem {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 45px;
+  padding-left: 10px;
+}
+
+.recomitem > span {
+  display: inline-block;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  width: 1%;
+  padding-right: 10px;
+  font-size: 15px;
+  line-height: 45px;
+  color: #333;
+  &:after {
+    border-color: rgba(0,0,0,.1);
+  }
+}
+
+.recomitem > i {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 7px;
+}
+
+.title {
+  height: 50px;
+  margin-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  line-height: 50px;
+  color: #507daf;
+}
 
 .close {
   position: absolute;
