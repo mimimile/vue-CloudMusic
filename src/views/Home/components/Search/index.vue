@@ -3,7 +3,9 @@
     <form class="m-input f-bd f-bd-btm" method="get" action="#">
       <div class="inputcover">
         <i class="u-svg u-svg-srch"></i>
-        <input name="search" class="input" v-model="keywords" @keyup="hiddenLabel" autocomplete="off">
+        <form onsubmit="return false;" >
+          <input name="search" class="input" v-model="keywords" @keyup="hiddenLabel" @keyup.enter="getResult" autocomplete="off">
+        </form>
         <label v-show="isHidden" class="holder">搜索歌曲、歌手、专辑</label>
         <figure class="close" v-show="!isHidden">
           <i class="u-svg u-svg-empty z-show" @click="keywords = ''"></i>
@@ -29,6 +31,10 @@
             <span class="f-bd f-bd-btm f-thide">{{item}}</span>
           </li>
         </ul>
+      </section>
+      <section v-else-if="type === searchType.result" class="m-songlist">
+        <div class="m-sglst">
+        </div>
       </section>
     </div>
   </div>
@@ -83,6 +89,9 @@ export default {
     }
   },
   methods: {
+    getResult () {
+      console.log(123)
+    },
     async handleSearch (v) {
       console.warn('keywords', v)
       const { result: { order } } = await searchSuggest({ keywords: v })
