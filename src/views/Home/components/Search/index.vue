@@ -8,7 +8,7 @@
         </form>
         <label v-show="isHidden" class="holder">搜索歌曲、歌手、专辑</label>
         <figure class="close" v-show="!isHidden">
-          <i class="u-svg u-svg-empty z-show" @click="keywords = ''"></i>
+          <i class="u-svg u-svg-empty z-show" @click="keywords = ''; searchWord = ''"></i>
         </figure>
       </div>
     </form>
@@ -17,7 +17,7 @@
         <h3 class="m-hotlist__title">热门搜索</h3>
         <ul class="m-hotlist__list">
           <li class="m-hotlist__list--item f-bd f-bd-full" v-for="item in hotlist" :key="item">
-            <a class="link">{{item}}</a>
+            <a class="link" @click="searchItem(item)">{{item}}</a>
           </li>
         </ul>
       </section>
@@ -33,7 +33,8 @@
         </ul>
       </section>
       <section v-else-if="type === searchType.result" class="m-songlist">
-        <div class="m-sglst">
+        <div class="m-sglst" v-for="(item, index) in resultList" :key="index">
+          <result-cell class="m-sglst__item" :data="item" :highlight="searchWord"></result-cell>
         </div>
       </section>
     </div>
@@ -42,12 +43,16 @@
 
 <script>
 import Enum from 'enum'
-import { searchSuggest } from '@/api/home'
+import { searchSuggest, searchResult } from '@/api/home'
+import ResultCell from './components/ResultCell'
 
 const searchType = new Enum(['default', 'recom', 'result'])
 
 export default {
   name: 'search',
+  components: {
+    ResultCell
+  },
   data () {
     return {
       hotlist: [
@@ -67,7 +72,8 @@ export default {
       searchWord: '',
       isHidden: true,
       stopHidden: false,
-      orderList: []
+      orderList: [],
+      resultList: []
     }
   },
   computed: {
@@ -89,11 +95,20 @@ export default {
     }
   },
   methods: {
-    getResult () {
-      console.log(123)
+    async searchItem (keywords) {
+      this.searchWord = keywords
+      this.keywords = keywords
+      this.isHidden = false
+      const { result: { songs } } = await searchResult({ keywords, limit: 100 })
+      this.resultList = songs
+      this.type = searchType.result
+    },
+    async getResult () {
+      const { result: { songs } } = await searchResult({ keywords: this.keywords, limit: 100 })
+      this.resultList = songs
+      this.type = searchType.result
     },
     async handleSearch (v) {
-      console.warn('keywords', v)
       const { result: { order } } = await searchSuggest({ keywords: v })
       this.orderList = order
     },
@@ -230,6 +245,15 @@ export default {
         border-radius: 32px;
       }
     }
+  }
+}
+
+@include b(m-sglst) {
+  @include e(item) {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    padding-left: 10px;
   }
 }
 </style>

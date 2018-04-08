@@ -29,3 +29,11 @@ export function searchSuggest (query) {
     params: query
   })
 }
+
+export function searchResult (query) {
+  return request({
+    url: '/search',
+    method: 'get',
+    params: query
+  })
+}

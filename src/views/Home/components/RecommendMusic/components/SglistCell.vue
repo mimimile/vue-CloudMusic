@@ -54,38 +54,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/styles/mixins/mixins";
-
-.sgfr {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  position: relative;
-}
-.f-bd {
-  position: relative;
-}
-.sgalia {
-  color: #888;
-  margin-left: 4px;
-}
-.f-bd-btm:after {
-  border-color: hsla(0,0%,100%,.1);
-}
-.f-bd-btm:after {
-  border-bottom-width: 1px;
-}
-.f-bd:after {
-  position: absolute;
-  z-index: 2;
-  content: "";
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  -webkit-transform-origin: top left;
-  transform-origin: top left;
-  border: 0 solid rgba(0,0,0,.1);
-}
 </style>
