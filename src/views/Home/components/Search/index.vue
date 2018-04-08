@@ -20,6 +20,13 @@
             <a class="link" @click="searchItem(item)">{{item}}</a>
           </li>
         </ul>
+        <section class="m-history" v-if="historyList">
+          <ul class="m-history__list">
+            <li class="m-history__item">
+              <history-cell :data="item" v-for="(item, index) in historyList" :key="index" @search="searchItem" @remove="remove"></history-cell>
+            </li>
+          </ul>
+        </section>
       </section>
       <section v-else-if="type === searchType.recom" class="m-history">
         <h3 class="title f-bd f-bd-btm f-thide">
@@ -44,14 +51,18 @@
 <script>
 import Enum from 'enum'
 import { searchSuggest, searchResult } from '@/api/home'
+import { localStorage } from '@/modules/storage'
 import ResultCell from './components/ResultCell'
+import HistoryCell from './components/HistoryCell'
 
 const searchType = new Enum(['default', 'recom', 'result'])
+const historyKey = 'historyKey'
 
 export default {
   name: 'search',
   components: {
-    ResultCell
+    ResultCell,
+    HistoryCell
   },
   data () {
     return {
@@ -73,7 +84,8 @@ export default {
       isHidden: true,
       stopHidden: false,
       orderList: [],
-      resultList: []
+      resultList: [],
+      historyList: []
     }
   },
   computed: {
@@ -94,7 +106,24 @@ export default {
       }
     }
   },
+  mounted () {
+    this.checkHistory()
+  },
   methods: {
+    remove () {
+      this.historyList = localStorage.getItem(historyKey)
+    },
+    addHistory (keywords) {
+      const order = this.historyList.indexOf(keywords)
+      if (order >= 0) return
+      this.historyList.push(keywords)
+      localStorage.setItem(historyKey, this.historyList)
+    },
+    checkHistory () {
+      if (localStorage.hasItem(historyKey)) {
+        this.historyList = localStorage.getItem(historyKey)
+      }
+    },
     async searchItem (keywords) {
       this.searchWord = keywords
       this.keywords = keywords
@@ -102,11 +131,13 @@ export default {
       const { result: { songs } } = await searchResult({ keywords, limit: 100 })
       this.resultList = songs
       this.type = searchType.result
+      this.addHistory(keywords)
     },
     async getResult () {
       const { result: { songs } } = await searchResult({ keywords: this.keywords, limit: 100 })
       this.resultList = songs
       this.type = searchType.result
+      this.addHistory(this.keywords)
     },
     async handleSearch (v) {
       const { result: { order } } = await searchSuggest({ keywords: v })
