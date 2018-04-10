@@ -18,6 +18,7 @@
     "axios": "^0.18.0",
     "enum": "^2.5.0",
     "fecha": "^2.3.3",
+    "howler": "^2.0.9",
     "mint-ui": "^2.2.13",
     "node-sass": "^4.7.2",
     "normalize.css": "^8.0.0",
