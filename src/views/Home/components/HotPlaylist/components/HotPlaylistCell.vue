@@ -85,9 +85,7 @@ export default {
   display: flex;
   position: relative;
 }
-.f-bd {
-  position: relative;
-}
+
 @include b(playlist-cell) {
   display: -webkit-box;
   display: -webkit-flex;

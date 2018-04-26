@@ -12,6 +12,45 @@
           <span class="lsthd_icon">歌单</span>
           <i class="u-earp lsthd_num">{{playCount}}</i>
         </div>
+        <div class="plhead_fr">
+          <h2 class="f-thide2 f-brk lsthd_title">{{data.name}}</h2>
+          <div class="lsthd_auth f-thide">
+            <router-link :to="{
+              name: 'music',
+              query: {
+                id: data.id
+              }
+            }">
+              <div class="lsthd_link">
+                <div class="u-avatar lsthd_ava">
+                  <img class="u-img" :src="creator.avatarUrl" alt="">
+                </div>
+                {{creator.nickname}}
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pylst_intro">
+      <div class="lstit_tags">
+        标签:
+        <em class="f-bd f-bd-full lstit_tag" v-for="(tag, index) in tags" :key="index">{{tag}}</em>
+      </div>
+      <div class="u-intro">
+        <div class="f-brk" :class="{
+          'f-thide3': introIsHiden
+        }">
+          <span v-for="(text, index) in description" :key="index">
+            <i>{{index === 0 ? '简介：' : ''}}{{text}}</i>
+            <br>
+          </span>
+        </div>
+        <span class="intro_arrow" :class="{
+          'u-arowup': !introIsHiden,
+          'u-arowdown': introIsHiden
+        }"
+        @click="introHiden"></span>
       </div>
     </section>
   </div>
@@ -27,7 +66,11 @@ export default {
     return {
       id: null,
       bgImg: null,
-      data: null
+      data: null,
+      creator: null,
+      tags: [],
+      description: [],
+      introIsHiden: true
     }
   },
   computed: {
@@ -41,15 +84,133 @@ export default {
   async created () {
     this.id = this.$route.query.id
     const { result } = await fetchPlaylist({ id: this.id })
+    const { creator, tags, description } = result
     console.log('result', result)
     this.data = result
+    this.creator = creator
     this.bgImg = result.coverImgUrl
+    this.tags = tags
+    this.description = description.split('\n')
+    console.log('description', this.description)
+  },
+  methods: {
+    introHiden () {
+      this.introIsHiden = !this.introIsHiden
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "src/styles/mixins/mixins";
+
+.u-arowup {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAANCAQAAAAZZWZbAAAAlElEQVR4AY2ShQ1CMRBA33efgSgD4B/3aPdfhwsO1Vdvz1OMZCwYExNIzhYlbUocJr5DybjKPPOrFHfxLRndXWVO7Bbfo9iQIdBykdOCBAslBxRrMgS/yl2cFRnfNHeVnkQXP97FU/6pOcvL8vel4nS/NEdbc/oxdr/Q3eoGV2Qvl3piusrxWRCPuJ4lg+BfU7JneAOq9xL9utncPAAAAABJRU5ErkJggg==);
+}
+
+.u-arowdown {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAANCAQAAAAZZWZbAAAAkElEQVR4AY2RtQEDMQxFX+D4RsgA6cN4XGr/cQJyEzD9yvCeZIAVWxbEJKNhDQ3CiUUE3iE0UNAjnFniS674nVQnqlw8iiHuJN/+hQRbzBluJP8tryQWfLAXy2j/61Aa3H7clOb7pJSMFtyipABUip/9T55yR2hIqZnifihRpVX8aMGtyg1BODAnMglHdnb8CYQbEwGgBxiKAAAAAElFTkSuQmCC);
+}
+
+.intro_arrow {
+  position: absolute;
+  bottom: 3px;
+  right: 0;
+  z-index: 3;
+  width: 15px;
+  height: 15px;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 12px auto;
+}
+
+.u-intro {
+  position: relative;
+  padding-bottom: 18px;
+  line-height: 19px;
+  color: #666;
+}
+
+.lstit_tag {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 1px 8px;
+  font-size: 12px;
+}
+
+.lstit_tag:after {
+  border-radius: 9999px;
+}
+
+.lstit_tags {
+  margin-bottom: 10px;
+  line-height: 20px;
+  margin-right: -10px;
+}
+
+.pylst_intro {
+  position: relative;
+  margin: 0 10px 0 15px;
+  padding-top: 10px;
+  line-height: 19px;
+  color: #666;
+}
+
+.ava-icon.ava-icon-v {
+  background-position: 0 0;
+}
+
+.u-avatar > .u-img {
+  border-radius: 50%;
+}
+
+.u-img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.u-avatar {
+  position: relative;
+  width: 100%;
+}
+
+.lsthd_ava {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.lsthd_link {
+  display: inline-block;
+  color: hsla(0,0%,100%,.7);
+}
+
+.lsthd_auth {
+  display: block;
+  position: relative;
+  margin-top: 20px;
+}
+
+.lsthd_title {
+  padding-top: 1px;
+  font-size: 17px;
+  line-height: 1.3;
+  color: #fefefe;
+  height: 44px;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+}
+
+.plhead_fr {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-left: 16px;
+}
 
 .plhead_fl {
   position: relative;

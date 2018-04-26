@@ -130,6 +130,10 @@ video::-webkit-media-controls-start-playback-glyph {
   clear: both;
 }
 
+.f-bd {
+  position: relative;
+}
+
 .sgchfl, .sgfr {
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;
@@ -352,4 +356,22 @@ video::-webkit-media-controls-start-playback-glyph {
 .sgalia {
   color: #888;
   margin-left: 4px;
+}
+
+.f-brk {
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.f-thide2, .f-thide3, .f-thide4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.f-thide3 {
+  -webkit-line-clamp: 3;
 }
