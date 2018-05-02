@@ -53,15 +53,48 @@
         @click="introHiden"></span>
       </div>
     </section>
+    <div class="pylst_list">
+      <h3 class="u-smtitle">歌曲列表</h3>
+      <ol class="u-songs">
+        <li class="u-song" v-for="(song, index) in songs" :key="index">
+          <list-cell :data="song" :id="index+1"></list-cell>
+        </li>
+      </ol>
+    </div>
+    <div class="m-talk">
+      <div class="m-comments">
+        <h4 class="cmt_title">
+          精彩评论
+        </h4>
+        <div class="cmt_list">
+          <cmt-item v-for="(hotCmt, index) in hotCmts" :key="index" :data="hotCmt"/>
+        </div>
+      </div>
+      <div class="m-comments">
+        <h4 class="cmt_title">
+          最新评论({{total}})
+        </h4>
+        <div class="cmt_list">
+          <cmt-item v-for="(cmt, index) in cmts" :key="index" :data="cmt"/>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { addChineseUnit } from '@/utils'
-import { fetchPlaylist } from '@/api/playlist'
+import { fetchPlaylist, fetchCmt } from '@/api/playlist'
+
+import ListCell from './components/Cell'
+import CmtItem from './components/CmtItem'
 
 export default {
   name: 'playlist',
+  components: {
+    ListCell,
+    CmtItem
+  },
   data () {
     return {
       id: null,
@@ -70,7 +103,11 @@ export default {
       creator: null,
       tags: [],
       description: [],
-      introIsHiden: true
+      songs: [],
+      introIsHiden: true,
+      hotCmts: [],
+      cmts: [],
+      total: 0
     }
   },
   computed: {
@@ -83,19 +120,31 @@ export default {
   },
   async created () {
     this.id = this.$route.query.id
-    const { result } = await fetchPlaylist({ id: this.id })
-    const { creator, tags, description } = result
-    console.log('result', result)
-    this.data = result
-    this.creator = creator
-    this.bgImg = result.coverImgUrl
-    this.tags = tags
-    this.description = description.split('\n')
-    console.log('description', this.description)
+    await this.getData()
+    await this.getCmtData()
   },
   methods: {
     introHiden () {
       this.introIsHiden = !this.introIsHiden
+    },
+    async getData () {
+      const { result } = await fetchPlaylist({ id: this.id })
+      const { creator, tags, description, tracks } = result
+      console.log('result', result)
+      this.data = result
+      this.creator = creator
+      this.bgImg = result.coverImgUrl
+      this.tags = tags
+      this.description = description.split('\n')
+      this.songs = tracks
+    },
+    async getCmtData () {
+      const { hotComments, comments, total } = await fetchCmt({ id: this.id })
+      this.hotCmts = hotComments
+      this.cmts = comments
+      this.total = total
+      console.log('this.hotCmts', this.hotCmts)
+      console.log('this.cmts', this.cmts)
     }
   }
 }
@@ -103,6 +152,40 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/styles/mixins/mixins";
+
+.cmt_title {
+  margin: 0;
+  padding: 4px 10px;
+  color: #666;
+  font-size: 12px;
+  font-weight: 400;
+  background: rgba(0,0,0,.05);
+}
+
+.m-comments {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.m-comments {
+  word-break: break-all!important;
+  word-break: break-word!important;
+}
+
+.u-song {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.u-smtitle {
+  height: 23px;
+  line-height: 23px;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #666;
+  background-color: #eeeff0;
+}
 
 .u-arowup {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAANCAQAAAAZZWZbAAAAlElEQVR4AY2ShQ1CMRBA33efgSgD4B/3aPdfhwsO1Vdvz1OMZCwYExNIzhYlbUocJr5DybjKPPOrFHfxLRndXWVO7Bbfo9iQIdBykdOCBAslBxRrMgS/yl2cFRnfNHeVnkQXP97FU/6pOcvL8vel4nS/NEdbc/oxdr/Q3eoGV2Qvl3piusrxWRCPuJ4lg+BfU7JneAOq9xL9utncPAAAAABJRU5ErkJggg==);

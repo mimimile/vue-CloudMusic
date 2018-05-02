@@ -7,3 +7,11 @@ export function fetchPlaylist (query) {
     params: query
   })
 }
+
+export function fetchCmt (query) {
+  return request({
+    url: '/comment/playlist',
+    method: 'get',
+    params: query
+  })
+}
