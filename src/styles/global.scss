@@ -375,3 +375,44 @@ video::-webkit-media-controls-start-playback-glyph {
 .f-thide3 {
   -webkit-line-clamp: 3;
 }
+
+@media screen and (min-width: 360px) {
+  .user-header .usrhd_in {
+      margin-top:1%
+  }
+
+  .user-header .usrhd_tfl {
+      padding-right: 5%
+  }
+
+  .user-header .usrhd_tfr {
+      padding-left: 5%
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .user-header .usrhd_in {
+      margin-top:2.5%
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .user-header .usrhd_in {
+      margin-top:1%
+  }
+
+  .user-header .usrhd_tfl {
+      padding-right: 5%
+  }
+
+  .user-header .usrhd_tfr {
+      padding-left: 5%
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .user-header .usrhd_in {
+      margin-top:2.5%
+  }
+}
+

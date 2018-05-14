@@ -1,9 +1,12 @@
 <template>
-  <div class="cmt_item">
+  <div class="cmt_item" v-if="user">
     <div class="cmt_head">
       <router-link class="userphoto"
         :to="{
-          name: 'music'
+          name: 'user',
+          query: {
+            uid: user.userId
+          }
         }">
         <img :src="user.avatarUrl" alt="">
       </router-link>
@@ -14,7 +17,10 @@
           <span class="cmt_user">
             <router-link class="nickname"
               :to="{
-                name: 'music'
+                name: 'user',
+                query: {
+                  uid: user.userId
+                }
               }">
               {{user.nickname}}
             </router-link>
@@ -34,7 +40,17 @@
       </div>
       <div class="cmt_content">
         <span class="cmt_text">
+          {{isReplied ? '回复' : ''}}
+          <span class="at" @click="toUserInfo(data.beReplied[0].user.userId)" v-if="isReplied">@{{data.beReplied[0].user.nickname}}</span>
           {{data.content}}
+        </span>
+      </div>
+      <div v-if="isReplied" class="cmt_replied f-bd f-bd-full">
+        <span class="cmt_replied_user">
+          @{{data.beReplied[0].user.nickname}}
+        </span>
+        <span class="cmt_replied_cnt">
+          {{data.beReplied[0].content}}
         </span>
       </div>
     </div>
@@ -63,17 +79,51 @@ export default {
     time () {
       const timestamp = this.data.time
       return fecha.format(timestamp, 'HH:ss')
+    },
+    isReplied () {
+      return this.data.beReplied.length > 0
     }
   },
   created () {
     const { user } = this.data
     this.user = user
+  },
+  methods: {
+    toUserInfo (uid) {
+      this.$router.push({
+        name: 'user',
+        query: {
+          uid
+        }
+      })
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "src/styles/mixins/mixins";
+
+.cmt_text {
+  vertical-align: middle;
+}
+
+.cmt_replied_user {
+  vertical-align: middle;
+}
+
+.cmt_replied {
+  margin: 5px 0;
+  padding: 10px;
+  color: #888;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.at {
+  color: #507daf;
+  text-decoration: none;
+}
 
 .cmt_text {
   vertical-align: middle;

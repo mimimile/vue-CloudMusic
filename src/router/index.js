@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home/home'
-import Playlist from '@/views/Playlist/playlist'
-import notFound from '@/views/NotFound/notFound'
+import Home from '@/views/Home'
+import Playlist from '@/views/Playlist'
+import User from '@/views/User'
+import notFound from '@/views/NotFound'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/playlist',
       name: 'playlist',
       component: Playlist
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: User
     },
     {
       path: '*',

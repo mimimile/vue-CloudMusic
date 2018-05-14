@@ -130,7 +130,6 @@ export default {
     async getData () {
       const { result } = await fetchPlaylist({ id: this.id })
       const { creator, tags, description, tracks } = result
-      console.log('result', result)
       this.data = result
       this.creator = creator
       this.bgImg = result.coverImgUrl
@@ -143,8 +142,6 @@ export default {
       this.hotCmts = hotComments
       this.cmts = comments
       this.total = total
-      console.log('this.hotCmts', this.hotCmts)
-      console.log('this.cmts', this.cmts)
     }
   }
 }
