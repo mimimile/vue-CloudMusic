@@ -244,11 +244,6 @@ export default {
   border-radius: 50%;
 }
 
-.u-img {
-  width: 100%;
-  vertical-align: middle;
-}
-
 .u-avatar {
   position: relative;
   width: 100%;
@@ -339,11 +334,6 @@ export default {
   background-color: rgba(217,48,48,.8);
   border-top-right-radius: 17px;
   border-bottom-right-radius: 17px;
-}
-
-.u-img {
-  width: 100%;
-  vertical-align: middle;
 }
 
 .playlist {

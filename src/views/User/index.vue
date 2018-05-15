@@ -32,23 +32,34 @@
         </div>
       </div>
     </section>
+    <div class="user-playlist">
+      <h3 class="usrl_tl">
+        歌单({{playlist.length}})
+      </h3>
+      <div class="usrl_list">
+        <playlist-item v-for="(item, index) in playlist" :key="index" :data="item"></playlist-item>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { fetchUserDetail, fetchUserPlaylist } from '@/api/user'
-import MSvg from './components/Svg'
+import MSvg from './components/MSvg'
+import playlistItem from './components/PlaylistItem'
 
 export default {
   name: 'user',
   components: {
-    MSvg
+    MSvg,
+    playlistItem
   },
   data () {
     return {
       uid: null,
       profile: null,
-      listenSongs: null
+      listenSongs: null,
+      playlist: null
     }
   },
   async created () {
@@ -63,6 +74,7 @@ export default {
       console.log('playlist', playlist)
       this.profile = profile
       this.listenSongs = listenSongs
+      this.playlist = playlist
     }
   }
 }
@@ -70,6 +82,15 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/styles/mixins/mixins";
+
+.usrl_tl {
+  height: 28px;
+  padding-left: 10px;
+  background-color: #eeeff0;
+  font-size: 12px;
+  color: #666;
+  line-height: 28px;
+}
 
 .usrhd_icns {
   -webkit-box-flex: 0;
