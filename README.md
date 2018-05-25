@@ -19,9 +19,7 @@
 执行 yarn
 安装api相关node依赖
 
-在项目根目录先启动api服务
-npm run server
-启动前端服务
-npm run dev
+如何运行
+执行 npm start
 然后浏览器查看 http://0.0.0.0:8089
 ```
