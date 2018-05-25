@@ -32,7 +32,7 @@
         </div>
       </div>
     </section>
-    <section class="pylst_intro">
+    <section class="pylst_intro" v-if="!fromUser">
       <div class="lstit_tags">
         标签:
         <em class="f-bd f-bd-full lstit_tag" v-for="(tag, index) in tags" :key="index">{{tag}}</em>
@@ -61,7 +61,7 @@
         </li>
       </ol>
     </div>
-    <div class="m-talk">
+    <div class="m-talk" v-if="!fromUser">
       <div class="m-comments">
         <h4 class="cmt_title">
           精彩评论
@@ -116,6 +116,9 @@ export default {
     },
     playCount () {
       return addChineseUnit(this.data.playCount)
+    },
+    fromUser () {
+      return this.$route.query.isUser || false
     }
   },
   async created () {
@@ -134,7 +137,7 @@ export default {
       this.creator = creator
       this.bgImg = result.coverImgUrl
       this.tags = tags
-      this.description = description.split('\n')
+      this.description = description && description.split('\n')
       this.songs = tracks
     },
     async getCmtData () {

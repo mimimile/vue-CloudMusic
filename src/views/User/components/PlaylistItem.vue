@@ -24,7 +24,8 @@ export default {
       this.$router.push({
         name: 'playlist',
         query: {
-          id: this.data.id
+          id: this.data.id,
+          isUser: true
         }
       })
     }
