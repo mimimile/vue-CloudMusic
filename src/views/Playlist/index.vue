@@ -16,7 +16,7 @@
           <h2 class="f-thide2 f-brk lsthd_title">{{data.name}}</h2>
           <div class="lsthd_auth f-thide">
             <router-link :to="{
-              name: 'music',
+              name: 'player',
               query: {
                 id: data.id
               }

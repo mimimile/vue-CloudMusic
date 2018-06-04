@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
 import Playlist from '@/views/Playlist'
+import Player from '@/views/Player'
 import User from '@/views/User'
 import notFound from '@/views/NotFound'
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: User
+    },
+    {
+      path: '/player',
+      name: 'player',
+      component: Player
     },
     {
       path: '*',

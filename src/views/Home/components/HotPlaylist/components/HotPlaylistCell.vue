@@ -2,7 +2,7 @@
   <router-link
     class="playlist-cell"
     :to="{
-      name: 'music',
+      name: 'player',
       query: {
         id: data.id
       }

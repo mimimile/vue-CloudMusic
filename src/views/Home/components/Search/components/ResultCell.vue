@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="{
-      name: 'music',
+      name: 'player',
       query: {
         id: data.id
       }
