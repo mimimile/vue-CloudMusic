@@ -5,4 +5,5 @@ const prodEnv = require('./prod.env')
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   OSS_PREFIX: '"//music.163.com/api/img"',
+  GIT_URL: '"https://github.com/mimimile/vue-CloudMusic"'
 })

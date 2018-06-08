@@ -1,5 +1,5 @@
 <template>
-  <a href="#" target="_blank" class="github-corner" aria-label="View source on Github">
+  <a :href="url" target="_blank" class="github-corner" aria-label="View source on Github">
     <svg width="60" height="60" viewBox="0 0 250 250" style="fill:#1ea2ef; color:#fff; position: absolute; zIndex: 1000; border: 0; right: 0; top: 0;"
       aria-hidden="true">
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -10,6 +10,18 @@
     </svg>
   </a>
 </template>
+
+<script>
+
+export default {
+  name: 'github-corner',
+  data () {
+    return {
+      url: process.env.GIT_URL
+    }
+  }
+}
+</script>
 
 <style scoped>
 .github-corner:hover .octo-arm {

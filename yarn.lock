@@ -1085,6 +1085,12 @@ better-assert@~1.0.0:
   dependencies:
     callsite "1.0.0"
 
+better-scroll@^1.11.1:
+  version "1.11.1"
+  resolved "http://registry.npm.taobao.org/better-scroll/download/better-scroll-1.11.1.tgz#60a6ab41239152a8aa1cb78ca5e0680890cbdd06"
+  dependencies:
+    babel-runtime "^6.0.0"
+
 bfj-node4@^5.2.0:
   version "5.2.1"
   resolved "https://registry.npmjs.org/bfj-node4/-/bfj-node4-5.2.1.tgz#3a6aa2730cf6911ba2afb836c2f88f015d718f3f"
@@ -3687,9 +3693,9 @@ hosted-git-info@^2.1.4:
   version "2.6.0"
   resolved "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.6.0.tgz#23235b29ab230c576aab0d4f13fc046b0b038222"
 
-howler@^2.0.9:
-  version "2.0.9"
-  resolved "https://registry.npmjs.org/howler/-/howler-2.0.9.tgz#74f08191f857e26dc8a5dc6cba195bd1cdd97e5d"
+howler@^2.0.12:
+  version "2.0.12"
+  resolved "https://registry.npmjs.org/howler/-/howler-2.0.12.tgz#4b0695fadb2448f9b31ec50c4e327707723d9ed3"
 
 hpack.js@^2.1.6:
   version "2.1.6"
@@ -4768,6 +4774,10 @@ lower-case@^1.1.1:
   version "1.1.4"
   resolved "https://registry.npmjs.org/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
 
+lrc.js@^1.0.2:
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/lrc.js/download/lrc.js-1.0.2.tgz#12f2c4d7186380325da8c6c4b4b9c6a6a76bc2c8"
+
 lru-cache@4.1.x, lru-cache@^4.0.1, lru-cache@^4.1.1:
   version "4.1.2"
   resolved "https://registry.npmjs.org/lru-cache/-/lru-cache-4.1.2.tgz#45234b2e6e2f2b33da125624c4664929a0224c3f"
@@ -5051,10 +5061,6 @@ move-concurrently@^1.0.1:
     mkdirp "^0.5.1"
     rimraf "^2.5.4"
     run-queue "^1.0.3"
-
-moveto@^1.7.3:
-  version "1.7.3"
-  resolved "http://registry.npm.taobao.org/moveto/download/moveto-1.7.3.tgz#8086b5e276eb2446886047cbc0a4bf188df8b6e1"
 
 ms@0.7.1:
   version "0.7.1"
