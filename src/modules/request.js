@@ -3,7 +3,7 @@ import { Toast } from 'mint-ui'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: '/v1', // api的base_url
+  baseURL: process.env.BASE_URL, // api的base_url
   timeout: 5000 // request timeout
 })
 

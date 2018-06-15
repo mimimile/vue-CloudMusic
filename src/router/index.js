@@ -6,28 +6,31 @@ import Player from '@/views/Player'
 import User from '@/views/User'
 import notFound from '@/views/NotFound'
 
+const basePath = '/client'
+const resolve = (path = '') => `${basePath}/${path}`
+
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: resolve('app'),
       name: 'app',
       component: Home
     },
     {
-      path: '/playlist',
+      path: resolve('playlist'),
       name: 'playlist',
       component: Playlist
     },
     {
-      path: '/user',
+      path: resolve('user'),
       name: 'user',
       component: User
     },
     {
-      path: '/player',
+      path: resolve('player'),
       name: 'player',
       component: Player
     },
