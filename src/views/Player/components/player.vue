@@ -49,8 +49,9 @@ import BScroll from 'better-scroll'
 import Enum from 'enum'
 import LRC from 'lrc.js'
 import Lyric from '@/modules/lyric'
+import Loader from '@/components/Loaders'
 
-const playerStatus = new Enum(['default', 'loading', 'playing', 'pause', 'end'])
+const playerStatus = new Enum(['default', 'loading', 'loaded', 'playing', 'pause', 'end'])
 
 export default {
   name: 'm-player',
@@ -62,7 +63,8 @@ export default {
       scroll: null,
       currentLrc: null,
       playerStatus,
-      player: null
+      player: null,
+      loader: null
     }
   },
   computed: {
@@ -109,17 +111,25 @@ export default {
     this.playerInit()
   },
   beforeDestroy () {
-    if (this.player) this.player.unload()
+    if (this.player) {
+      this.loader.finish()
+      this.player.unload()
+    }
   },
   methods: {
     playerInit () {
       if (this.player) return
+      this.loader = Loader({
+        type: 'ball-grid-pulse'
+      })
+      this.status = playerStatus.loading
       this.player = new Howl({
         src: [ this.url ],
         // src: [ 'http://m10.music.126.net/20180608175953/350ad87e480ec451579f81c0600d69e3/ymusic/390a/819f/4ed5/9ca3ad0b2d6a3ab2249e043b8a7909cf.mp3' ],
         // autoplay: true,
         onload: () => {
-          this.status = playerStatus.loading
+          this.loader.finish()
+          this.status = playerStatus.loaded
         },
         onloaderror: () => {
           alert(1)
@@ -158,6 +168,9 @@ export default {
           this.pause()
           break
         case playerStatus.loading:
+          break
+        case playerStatus.loaded:
+          this.play()
           break
         case playerStatus.end:
           this.play()

@@ -23,9 +23,6 @@ export default {
     console.log(this.list33)
     await this.randomModel('33')
   },
-  mounted () {
-
-  },
   methods: {
     init (model) {
       window.L2Dwidget.init({
@@ -55,7 +52,7 @@ export default {
       return list[idx]
     },
     random (type) {
-      const url = location.origin + '/static/haruna/' + type
+      const url = location.origin + '/client/static/haruna/' + type
       const model = {
         type: 'Live2D Model Setting',
         name: type + '-random-model',

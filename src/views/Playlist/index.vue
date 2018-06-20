@@ -50,7 +50,7 @@
           'u-arowup': !introIsHiden,
           'u-arowdown': introIsHiden
         }"
-        @click="introHiden"></span>
+        @click.passive="introHiden"></span>
       </div>
     </section>
     <div class="pylst_list">
@@ -128,6 +128,7 @@ export default {
   },
   methods: {
     introHiden () {
+      console.log(123)
       this.introIsHiden = !this.introIsHiden
     },
     async getData () {

@@ -4,6 +4,9 @@
 ## vuejs仿写网易云webapp
 ----------------
 
+## 线上地址
+[地址](http://gintama.moe/client/app)
+
 ## node服务要是国内才行
 
 ## 其中的api感谢下面项目
