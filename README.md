@@ -5,7 +5,7 @@
 ----------------
 
 ## 线上地址
-[地址](http://gintama.moe/client/app)
+[点我](http://gintama.moe/client/app)
 
 ## node服务要是国内才行
 

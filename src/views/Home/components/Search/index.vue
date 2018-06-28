@@ -52,8 +52,7 @@
 import Enum from 'enum'
 import { searchSuggest, searchResult } from '@/api/home'
 import { localStorage } from '@/modules/storage'
-import ResultCell from './components/ResultCell'
-import HistoryCell from './components/HistoryCell'
+import { ResultCell, HistoryCell } from './components'
 
 const searchType = new Enum(['default', 'recom', 'result'])
 const historyKey = 'historyKey'

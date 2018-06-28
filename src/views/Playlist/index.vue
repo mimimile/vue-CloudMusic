@@ -86,8 +86,7 @@
 import { addChineseUnit } from '@/utils'
 import { fetchPlaylist, fetchCmt } from '@/api/playlist'
 
-import ListCell from './components/Cell'
-import CmtItem from './components/CmtItem'
+import { ListCell, CmtItem } from './components'
 
 export default {
   name: 'playlist',

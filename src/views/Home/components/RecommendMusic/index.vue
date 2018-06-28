@@ -33,8 +33,7 @@
 <script>
 import { fetchRecommendList, fetchSglist } from '@/api/home'
 import Subtitle from '@/components/Subtitle'
-import RecommendCell from './components/RecommendCell'
-import SglistCell from './components/SglistCell'
+import { RecommendCell, SglistCell } from './components'
 
 export default {
   name: 'recommend-music',

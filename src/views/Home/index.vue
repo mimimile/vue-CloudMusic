@@ -33,9 +33,7 @@
 
 <script>
 import GithubCorner from '@/components/GithubCorner'
-import RecommendMusic from './components/RecommendMusic'
-import HotPlaylist from './components/HotPlaylist'
-import Search from './components/Search'
+import { RecommendMusic, HotPlaylist, Search } from './components'
 
 export default {
   name: 'home',

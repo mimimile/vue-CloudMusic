@@ -45,14 +45,13 @@
 
 <script>
 import { fetchUserDetail, fetchUserPlaylist } from '@/api/user'
-import MSvg from './components/MSvg'
-import playlistItem from './components/PlaylistItem'
+import { MSvg, PlaylistItem } from './components'
 
 export default {
   name: 'user',
   components: {
     MSvg,
-    playlistItem
+    PlaylistItem
   },
   data () {
     return {
